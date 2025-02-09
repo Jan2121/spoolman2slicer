@@ -267,6 +267,8 @@ def load_and_update_all_filaments(url: str):
 
     for spool in spools:
         filament = spool["filament"]
+        if not "price" in filament.keys() and "price" in spool.keys():
+            filament["price"]=1000*spool['price']/spool['initial_weight']
         for suffix in get_config_suffix():
             add_sm2s_to_filament(filament, suffix)
             write_filament(filament)
